@@ -28,7 +28,7 @@ IMAGE_HEIGHT = 224
 IMAGE_WIDTH = 224
 
 
-def read_input_file(txt_fpath, dataset_root, shuffle=False):
+def read_input_file(txt_fpath, dataset_root=None, shuffle=False):
   """Reads and parses examples from AwA data files.
 
   Recommendation: if you want N-way read parallelism, call this function
@@ -64,8 +64,17 @@ def read_input_file(txt_fpath, dataset_root, shuffle=False):
 
   # Read image from the filepath
   # image_path = os.path.join(dataset_root, parsed_entries[0])
+
+
+
+
+
+  # I am using absolute path, thus there is no need to the root path
+
+
   dataset_root_t = tf.constant(dataset_root)
   result.image_path = dataset_root_t + parsed_entries[0] # String tensors can be concatenated by add operator
+
   raw_jpeg = tf.read_file(result.image_path)
   result.image = tf.image.decode_jpeg(raw_jpeg, channels=3)
 
